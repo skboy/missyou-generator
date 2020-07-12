@@ -1,5 +1,6 @@
 package com.missyou.generator;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.TemplateConfig;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -93,7 +95,7 @@ public class MyBatisPlusGenerate {
     /**
      * 要生成的表，用 `,` 分割
      */
-    private static final String TABLES = "core_user";
+    private static final String TABLES = "core_post";
 
     /**
      * 全局配置
@@ -174,6 +176,21 @@ public class MyBatisPlusGenerate {
         config.setRestControllerStyle(true);
         // 表前缀
         config.setTablePrefix(packageConfig().getModuleName() + "_");
+
+        // 字段填充
+        List<TableFill> tableFills = new ArrayList<>();
+        tableFills.add(new TableFill("is_deleted", FieldFill.INSERT));
+        tableFills.add(new TableFill("create_time", FieldFill.INSERT));
+        tableFills.add(new TableFill("update_time", FieldFill.INSERT_UPDATE));
+        config.setTableFillList(tableFills);
+
+        // CommonBase
+        config.setSuperEntityColumns("id", "create_time", "update_time");
+        config.setSuperEntityClass("com.missyou.commons.base.BaseDomain");
+        config.setSuperServiceClass("com.missyou.commons.base.IBaseService");
+        config.setSuperServiceImplClass("com.missyou.commons.base.BaseServiceImpl");
+        config.setSuperControllerClass("com.missyou.commons.base.BaseController");
+
         return config;
     }
 

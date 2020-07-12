@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>missyou-generator</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>代码生成器</description>
 
